@@ -1,0 +1,4 @@
+outs:
+- md5: 5acfed3f792ebe1399e7574494d8182a
+  size: 31741
+  path: indicators_v2.csv
