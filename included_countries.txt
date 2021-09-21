@@ -1,0 +1,144 @@
+AGO: Angola
+ALB: Albania
+ARE: United Arab Emirates
+ARG: Argentina
+ARM: Armenia
+AUS: Australia
+AUT: Austria
+AZE: Azerbaijan
+BDI: Burundi
+BEL: Belgium
+BEN: Benin
+BFA: Burkina Faso
+BGD: Bangladesh
+BGR: Bulgaria
+BHR: Bahrain
+BIH: Bosnia and Herzegovina
+BLR: Belarus
+BOL: Bolivia, Plurinational State of
+BRA: Brazil
+BRN: Brunei Darussalam
+BTN: Bhutan
+BWA: Botswana
+CAN: Canada
+CHE: Switzerland
+CHL: Chile
+CHN: China
+CIV: Côte d'Ivoire
+COL: Colombia
+COM: Comoros
+CPV: Cabo Verde
+CRI: Costa Rica
+CYP: Cyprus
+CZE: Czechia
+DEU: Germany
+DJI: Djibouti
+DNK: Denmark
+DOM: Dominican Republic
+DZA: Algeria
+ECU: Ecuador
+EGY: Egypt
+ESP: Spain
+EST: Estonia
+ETH: Ethiopia
+FIN: Finland
+FRA: France
+GAB: Gabon
+GBR: United Kingdom of Great Britain and Northern Ireland
+GHA: Ghana
+GIN: Guinea
+GMB: Gambia
+GRC: Greece
+GRD: Grenada
+GTM: Guatemala
+GUY: Guyana
+HND: Honduras
+HRV: Croatia
+HUN: Hungary
+IDN: Indonesia
+IND: India
+IRL: Ireland
+IRN: Iran, Islamic Republic of
+IRQ: Iraq
+ISL: Iceland
+ISR: Israel
+ITA: Italy
+JAM: Jamaica
+JOR: Jordan
+JPN: Japan
+KAZ: Kazakhstan
+KEN: Kenya
+KHM: Cambodia
+KIR: Kiribati
+KOR: Korea, Republic of
+LAO: Lao People's Democratic Republic
+LBN: Lebanon
+LBR: Liberia
+LCA: Saint Lucia
+LKA: Sri Lanka
+LSO: Lesotho
+LTU: Lithuania
+LUX: Luxembourg
+LVA: Latvia
+MAR: Morocco
+MDA: Moldova, Republic of
+MDG: Madagascar
+MDV: Maldives
+MEX: Mexico
+MKD: North Macedonia
+MLI: Mali
+MLT: Malta
+MMR: Myanmar
+MNG: Mongolia
+MOZ: Mozambique
+MUS: Mauritius
+MWI: Malawi
+MYS: Malaysia
+NAM: Namibia
+NER: Niger
+NGA: Nigeria
+NIC: Nicaragua
+NLD: Netherlands
+NOR: Norway
+NPL: Nepal
+NZL: New Zealand
+OMN: Oman
+PAK: Pakistan
+PAN: Panama
+PER: Peru
+PHL: Philippines
+PNG: Papua New Guinea
+POL: Poland
+PRT: Portugal
+PRY: Paraguay
+ROU: Romania
+RUS: Russian Federation
+RWA: Rwanda
+SAU: Saudi Arabia
+SEN: Senegal
+SLB: Solomon Islands
+SLE: Sierra Leone
+SLV: El Salvador
+SRB: Serbia
+SSD: South Sudan
+SVK: Slovakia
+SVN: Slovenia
+SWE: Sweden
+SWZ: Eswatini
+SYC: Seychelles
+THA: Thailand
+TUR: Turkey
+UGA: Uganda
+UKR: Ukraine
+URY: Uruguay
+USA: United States of America
+UZB: Uzbekistan
+VEN: Venezuela, Bolivarian Republic of
+VNM: Viet Nam
+VUT: Vanuatu
+WSM: Samoa
+XKX: Kosovo
+YEM: Yemen
+ZAF: South Africa
+ZMB: Zambia
+ZWE: Zimbabwe
