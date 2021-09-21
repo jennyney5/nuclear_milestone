@@ -32,9 +32,6 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import f1_score
 from sklearn.metrics import average_precision_score
 
-import matplotlib.pyplot as plt
-import seaborn as sns
-
 import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots

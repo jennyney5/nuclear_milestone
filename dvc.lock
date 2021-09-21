@@ -1,0 +1,55 @@
+schema: '2.0'
+stages:
+  clean_data:
+    cmd: python clean_data.py data/indicators_v2.csv data/indicators_long.csv data/short_df.csv
+      data/long_df.csv
+    deps:
+    - path: clean_data.py
+      md5: b85476ce7d4333dcf7518b8349807ced
+      size: 4689
+    - path: data/indicators_long.csv
+      md5: 8167ea991e300a692e547cc0002be280
+      size: 2367703
+    - path: data/indicators_v2.csv
+      md5: 5acfed3f792ebe1399e7574494d8182a
+      size: 31741
+    outs:
+    - path: data/long_df.csv
+      md5: eb0e4598804945a7979c8f2b391c11bb
+      size: 1345855
+    - path: data/short_df.csv
+      md5: fc85d1070fd37803d448d24dcd0e4907
+      size: 39146
+  unsupervised:
+    cmd: python unsupervised.py data/short_df.csv results/results_unsup.csv
+    deps:
+    - path: data/short_df.csv
+      md5: fc85d1070fd37803d448d24dcd0e4907
+      size: 39146
+    - path: unsupervised.py
+      md5: 70d86cdacff9dd7a8dbfa31d7d37402a
+      size: 10313
+    outs:
+    - path: results/results_unsup.csv
+      md5: c8f6fcbd935760c8a5d23e5b33493bbd
+      size: 693
+  supervised:
+    cmd: python supervised.py data/short_df.csv data/long_df.csv results/results_sup.csv
+      results/results_long_sup.csv
+    deps:
+    - path: data/long_df.csv
+      md5: eb0e4598804945a7979c8f2b391c11bb
+      size: 1345855
+    - path: data/short_df.csv
+      md5: fc85d1070fd37803d448d24dcd0e4907
+      size: 39146
+    - path: supervised.py
+      md5: 9172d52cb6f6ef788f9c859504927bd9
+      size: 11175
+    outs:
+    - path: results/results_long_sup.csv
+      md5: 1ef2822259cf985f1ddb8e75b31578db
+      size: 724
+    - path: results/results_sup.csv
+      md5: 2cf6f6e5254e0fc2960bee3373ad9a0f
+      size: 736
