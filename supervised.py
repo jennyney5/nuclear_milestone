@@ -242,7 +242,7 @@ def supervised_models(input_file, input_file_long):
             mean_score = cross_val_score(model, X_norm_long, y_long, scoring=score, cv=5, n_jobs=-1)
             results_df_long.loc[i,col] = np.mean(mean_score)
 
-    return results_df, results_df_long, models 
+    return results_df, results_df_long, models, models_long 
 
 if __name__ == '__main__':
     import argparse
@@ -258,9 +258,11 @@ if __name__ == '__main__':
         'output_file_long', help='the results of the model using long datafile (CSV)')
     parser.add_argument(
         'output_file_models', help='the best models using short datafile (pkl)')
+    parser.add_argument(
+        'output_file_models_long', help='the best models using long datafile (pkl)')
     args = parser.parse_args()
 
-    results, results_long, list_models = supervised_models(args.input_file, args.input_file_long)
+    results, results_long, list_models, list_models_long = supervised_models(args.input_file, args.input_file_long)
     results.to_csv(args.output_file, index=False)
     results_long.to_csv(args.output_file_long, index=False)
    
@@ -268,8 +270,9 @@ if __name__ == '__main__':
         for model in list_models:
               pickle.dump(model, f)
 
-
-
+    with open(args.output_file_models_long, "wb") as f:
+        for model_long in list_models_long:
+              pickle.dump(model_long, f)
 
 
 
