@@ -1,1 +1,4 @@
 /models.pkl
+/models_sup.pkl
+/models_long_sup.pkl
+/models_unsup.pkl
