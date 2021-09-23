@@ -143,7 +143,7 @@ def supervised_models(input_file, input_file_long):
     #uncomment to view results
     #print(results_df)
     
-    # Random Forest scored among the highest.  What are the most important features?
+    # RF scored among the highest.  What are the most important features?
     rf = clf_rf.best_estimator_.fit(X_norm,y)
     importance = rf.feature_importances_
     feature_importance = []
@@ -159,6 +159,7 @@ def supervised_models(input_file, input_file_long):
         os.mkdir("images")
     fig.write_image("images/short_df_rf_importances.png")
     
+    # GB scored among the highest.  What are the most important features?
     gbc = clf_gbc.best_estimator_.fit(X_norm,y)
     importance = gbc.feature_importances_
     feature_importance = []
