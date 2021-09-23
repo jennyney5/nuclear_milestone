@@ -21,21 +21,24 @@ stages:
       md5: fc85d1070fd37803d448d24dcd0e4907
       size: 39146
   unsupervised:
-    cmd: python unsupervised.py data/short_df.csv results/results_unsup.csv
+    cmd: python unsupervised.py data/short_df.csv models.pkl results/results_unsup.csv
     deps:
     - path: data/short_df.csv
       md5: fc85d1070fd37803d448d24dcd0e4907
       size: 39146
+    - path: models.pkl
+      md5: b06a7a541473be2195d5733d97b7d60b
+      size: 105679
     - path: unsupervised.py
-      md5: 70d86cdacff9dd7a8dbfa31d7d37402a
-      size: 10313
+      md5: d9c5e8825af00384e75c2b80abca0807
+      size: 10055
     outs:
     - path: results/results_unsup.csv
-      md5: c8f6fcbd935760c8a5d23e5b33493bbd
-      size: 693
+      md5: b7480f7bed31bcd30a4a09cf06165018
+      size: 712
   supervised:
     cmd: python supervised.py data/short_df.csv data/long_df.csv results/results_sup.csv
-      results/results_long_sup.csv
+      results/results_long_sup.csv models.pkl
     deps:
     - path: data/long_df.csv
       md5: eb0e4598804945a7979c8f2b391c11bb
@@ -44,12 +47,15 @@ stages:
       md5: fc85d1070fd37803d448d24dcd0e4907
       size: 39146
     - path: supervised.py
-      md5: 9172d52cb6f6ef788f9c859504927bd9
-      size: 11175
+      md5: 1f72f0da65eba00d2047e267a94c70d3
+      size: 11460
     outs:
+    - path: models.pkl
+      md5: b06a7a541473be2195d5733d97b7d60b
+      size: 105679
     - path: results/results_long_sup.csv
-      md5: 1ef2822259cf985f1ddb8e75b31578db
-      size: 724
+      md5: 4bafa883e3ee4de71081aab31f9c2dfe
+      size: 710
     - path: results/results_sup.csv
-      md5: 2cf6f6e5254e0fc2960bee3373ad9a0f
-      size: 736
+      md5: b5d413b77d4022087bfb9eaea749b52f
+      size: 768
