@@ -1,2 +1,4 @@
+[core]
+    remote = dvcremote
 ['remote "dvcremote"']
     url = https://drive.google.com/drive/folders/1v-XpSES6g5Cevljv_SZuSXnOUp29i6Is
