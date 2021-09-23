@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 import re
+import pickle
 
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import MinMaxScaler
@@ -173,7 +174,7 @@ def supervised_models(input_file, input_file_long):
     #grid search on long_df
     #SVC grid search
     parameters = {'kernel':('linear', 'rbf', 'poly', 'sigmoid'), 'C':[1, 10, 100], 'class_weight': [None, 'balanced'],
-                 'probability': [True, False]}
+                  'probability': [True, False]}
     svc = SVC()
     clf_svc = GridSearchCV(svc, parameters)
     clf_svc.fit(X_norm_long, y_long)
@@ -214,7 +215,7 @@ def supervised_models(input_file, input_file_long):
     clf_rf = GridSearchCV(rf, parameters)
     clf_rf.fit(X_norm_long, y_long)
     
-    models = [
+    models_long = [
         DummyClassifier(strategy = 'stratified'),
         DummyClassifier(strategy = 'most_frequent'),
         clf_svc.best_estimator_,
@@ -235,13 +236,13 @@ def supervised_models(input_file, input_file_long):
     # prepping data and scores for looping through models
     score_data = list(zip(Score_list,scores))
     
-    for i,model in enumerate(models):
+    for i,model in enumerate(models_long):
         for col,score  in score_data:
             # calculate cv scores for each model on df and long df, returning accuracy and F1 scores
             mean_score = cross_val_score(model, X_norm_long, y_long, scoring=score, cv=5, n_jobs=-1)
             results_df_long.loc[i,col] = np.mean(mean_score)
 
-    return results_df, results_df_long
+    return results_df, results_df_long, models 
 
 if __name__ == '__main__':
     import argparse
@@ -255,11 +256,17 @@ if __name__ == '__main__':
         'output_file', help='the results of the model using nuclear datafile (CSV)')
     parser.add_argument(
         'output_file_long', help='the results of the model using long datafile (CSV)')
+    parser.add_argument(
+        'output_file_models', help='the best models using short datafile (pkl)')
     args = parser.parse_args()
 
-    results, results_long = supervised_models(args.input_file, args.input_file_long)
+    results, results_long, list_models = supervised_models(args.input_file, args.input_file_long)
     results.to_csv(args.output_file, index=False)
     results_long.to_csv(args.output_file_long, index=False)
+   
+    with open(args.output_file_models, "wb") as f:
+        for model in list_models:
+              pickle.dump(model, f)
 
 
 

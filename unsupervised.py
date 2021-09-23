@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import os
 import re
+import pickle
 
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import MinMaxScaler
@@ -49,7 +50,7 @@ import warnings
 warnings.filterwarnings('ignore')
 np.random.seed(42)
 
-def unsupervised_models(input_file):    
+def unsupervised_models(input_file, models_list):    
     #read in files
     df = pd.read_csv(input_file)
     
@@ -192,47 +193,35 @@ def unsupervised_models(input_file):
     
     
     # PCA Dimensionality reduction
-    pca_long = PCA(n_components = 8,random_state = 0).fit(X_norm)
-    X_pca_long = pca_long.transform(X_norm)
-    df_pca = pd.DataFrame({'Explained Variance Ratio':pca_long.explained_variance_ratio_,
+    pca = PCA(n_components = 8,random_state = 0).fit(X_norm)
+    X_pca = pca.transform(X_norm)
+    df_pca = pd.DataFrame({'Explained Variance Ratio':pca.explained_variance_ratio_,
                    'PC #':[1,2,3,4,5,6,7,8]})
     fig = px.bar(df_pca, x="PC #", y="Explained Variance Ratio",title = "Explained Variance Ratio by Principal Components")
     fig.write_image("images/short_df_PCA8_Exp_Variance.png")
     
-    principal_df_long = pd.DataFrame(data = X_pca_long
+    principal_df = pd.DataFrame(data = X_pca
              , columns = ['PC1','PC2','PC3','PC4','PC5','PC6','PC7','PC8'])
-    final_df_long = pd.concat([principal_df_long, y], axis = 1)
-    final_df_long['Nuclear'] = final_df_long['Nuclear'].astype(str)
-    fig = px.scatter(final_df_long, x="PC1", y="PC2",color="Nuclear", title = "First 2 Principal Components")
+    final_df = pd.concat([principal_df, y], axis = 1)
+    final_df['Nuclear'] = final_df['Nuclear'].astype(str)
+    fig = px.scatter(final_df, x="PC1", y="PC2",color="Nuclear", title = "First 2 Principal Components")
     fig.write_image("images/short_df_PCA8_First2PC.png")
     
     Score_list = ['Mean_Accuracy_score_df','Mean_Precision_score','Mean_recall_score','Mean_F1_score']
     scores = ['accuracy','precision','recall','f1']
     model_list = ['Dummy_stratified','Dummy_most_freq','SVC','KNN','Log_reg','Tree','GBTree','RFTree']
-    
-    models = [
-    DummyClassifier(strategy = 'stratified', random_state = 42),
-    DummyClassifier(strategy = 'most_frequent', random_state = 42),
-    SVC(class_weight='balanced', probability=True, random_state = 42),
-    KNeighborsClassifier(n_neighbors=5),
-    LogisticRegression(random_state = 42),
-    DecisionTreeClassifier(max_depth=3, random_state = 42),
-    GradientBoostingClassifier(max_depth=3, random_state = 42),
-    RandomForestClassifier(max_depth=3, random_state = 42)
-    ]
-    
-    
+       
     results_df = pd.DataFrame()
     results_df['model'] = model_list
     
     # prepping data and scores for looping through models
     score_data = list(zip(Score_list,scores))
     
-    for i,model in enumerate(models):
+    for i,model in enumerate(models_list):
         # Using LOOCV evaluate the different models
         for col,score  in score_data:
             # calculate cv scores for each model on df and long df, returning accuracy and F1 scores
-            mean_score = cross_val_score(model, principal_df_long, y, scoring=score, cv=5, n_jobs=-1)
+            mean_score = cross_val_score(model, principal_df, y, scoring=score, cv=5, n_jobs=-1)
             results_df.loc[i,col] = np.mean(mean_score)
     
     return results_df
@@ -244,11 +233,20 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument(
         'input_file', help='the cleaned datafile of nuclear indicators (CSV)')
-
+    parser.add_argument(
+        'input_file_models', help='the best supervised models on dataset (pkl)')
     parser.add_argument(
         'output_file', help='the results of the unsupervised model after dimensionality reduction (CSV)')
 
     args = parser.parse_args()
+    
+    list_models = []
+    with open(args.input_file_models, "rb") as f:
+        while True:
+            try:
+                list_models.append(pickle.load(f))
+            except EOFError:
+                break
 
-    results = unsupervised_models(args.input_file)
+    results = unsupervised_models(args.input_file, list_models)
     results.to_csv(args.output_file, index=False)

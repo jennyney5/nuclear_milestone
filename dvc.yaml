@@ -1,7 +1,6 @@
 stages:
   clean_data:
-    cmd: python clean_data.py data/indicators_v2.csv data/indicators_long.csv data/short_df.csv
-      data/long_df.csv
+    cmd: python clean_data.py data/indicators_v2.csv data/indicators_long.csv data/short_df.csv data/long_df.csv
     deps:
     - clean_data.py
     - data/indicators_long.csv
@@ -10,8 +9,7 @@ stages:
     - data/long_df.csv
     - data/short_df.csv
   supervised:
-    cmd: python supervised.py data/short_df.csv data/long_df.csv results/results_sup.csv
-      results/results_long_sup.csv
+    cmd: python supervised.py data/short_df.csv data/long_df.csv results/results_sup.csv results/results_long_sup.csv models.pkl
     deps:
     - supervised.py
     - data/short_df.csv
@@ -19,10 +17,12 @@ stages:
     outs:
     - results/results_sup.csv
     - results/results_long_sup.csv
+    - models.pkl	
   unsupervised:
-    cmd: python unsupervised.py data/short_df.csv results/results_unsup.csv
+    cmd: python unsupervised.py data/short_df.csv models.pkl results/results_unsup.csv
     deps:
     - unsupervised.py
     - data/short_df.csv
+    - models.pkl
     outs:
     - results/results_unsup.csv
